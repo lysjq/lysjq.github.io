@@ -1,18 +1,14 @@
 sudo: false
 language: node_js
-node_js:
-  - 10 # use nodejs v10 LTS
+node_js: stable
 cache: npm
 branches:
   only:
     - dev # build master branch only
+before_install:
+  - yarn global add hexo-cli
+install:
+  - yarn
 script:
   - hexo generate # generate static files
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GH_TOKEN
-  keep-history: true
-  on:
-    branch: master
-  local-dir: public
+  - hexo deploy
