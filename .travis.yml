@@ -1,14 +1,33 @@
-sudo: false
-language: node_js
-node_js: stable
-cache: npm
-branches:
-  only:
-    - dev # build master branch only
-before_install:
-  - yarn global add hexo-cli
-install:
-  - yarn
+# Travis-CI config
+language: node_js # 指定构建脚本执行环境为nodejs
+node_js: stable # 指定node版本为稳定版 也可以指定版本号
+
+# Cache dir config
+cache: # 缓存设置的文件或者目录
+  directories:
+    - node_modules
+
+# Install scripts
+install: # 构建前下载依赖
+  - npm install
+
+# script: # 构建主要要执行的脚本
 script:
-  - hexo generate # generate static files
-  - hexo deploy
+  - hexo g
+  
+# After_script
+after_script: # 构建结束要执行的脚本
+  - cd ./public
+  - git init
+  - git config user.name "ntnyq"
+  - git config user.email "ntnyq13@gmail.com"
+  - git add .
+  - git commit -m "Update blog"
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
+
+branches: # github上的分支
+  only:
+    - dev # 我的博客源码保存在了dev分支上
+env: # 构建中使用到的环境变量
+ global:
+   - GH_REF: git@github.com:lysjq/lysjq.github.io.git
