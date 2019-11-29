@@ -23,7 +23,7 @@ after_script: # 构建结束要执行的脚本
   - git config user.email "741779880@qq.com"
   - git add .
   - git commit -m "Update blog"
-  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" dev:master
 
 branches: # github上的分支
   only:
