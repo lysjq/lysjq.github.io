@@ -7,7 +7,7 @@ cache: # 缓存设置的文件或者目录
   directories:
     - node_modules
 before_install:
-  - yarn golbal add hexo-cli
+  - yarn global add hexo-cli
 # Install scripts
 install: # 构建前下载依赖
   - yarn
