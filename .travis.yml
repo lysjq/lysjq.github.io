@@ -6,13 +6,15 @@ node_js: stable # 指定node版本为稳定版 也可以指定版本号
 cache: # 缓存设置的文件或者目录
   directories:
     - node_modules
-
+before_install:
+  - yarn golbal add hexo-cli
 # Install scripts
 install: # 构建前下载依赖
-  - npm install
+  - yarn
 
 # script: # 构建主要要执行的脚本
 script:
+  - hexo clean
   - hexo g
   
 # After_script
@@ -22,12 +24,12 @@ after_script: # 构建结束要执行的脚本
   - git config user.name "lysjq"
   - git config user.email "741779880@qq.com"
   - git add .
-  - git commit -m "Update blog"
-  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" dev:master
+  - git commit -m "Travis 自动部署"
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
 
 branches: # github上的分支
   only:
     - dev # 我的博客源码保存在了dev分支上
 env: # 构建中使用到的环境变量
  global:
-   - GH_REF: git@github.com:lysjq/lysjq.github.io.git
+   - GH_REF: github.com/lysjq/lysjq.github.io.git
